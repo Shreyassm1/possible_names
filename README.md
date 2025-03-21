@@ -28,3 +28,22 @@
 ![Screenshot Description](<https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(126).png>)
 ![Screenshot Description](<https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(127).png>)
 ![Screenshot Description](<https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(128).png>)
+
+## Log 3 - Avoiding rate limiting and checking for duplicate names after extraction to confirm script logic.
+
+### Rate limiting is avoided using exponential backing and adding a random time delay for every request using a simple promise. If error 429 occurs, the program waits and retires and the delay is doubled for the next retry. Random delay introduces human-like behaviour. It can be adjusted easily using min and max delay time.
+
+### New Logic was added for accessing strings beyond 10th/12th/15th count by slicing off the last string of a query and removing the 3rd character. Example : aakfubvxv --> k, so we ran another loop from k to z for aa else a new query for ab would have started and these "hidden" elements would have never been accessed.
+
+### I checked for duplicates using check_duplicate.js to make sure my logic worked and it did, no duplicates were found.
+
+### **Problems faced:**
+
+- Adding logic for returning strings beyond the 10th/12th/15th count consisted of nesting a third for loop.
+- Individual requests meant returning only one string for each "hidden" string beyond 10th/12th/15th.
+- Slow process since each request resulted in minimal returns for random time delay.
+- I tried using bottleneck library but ran into errors such as "socket hang up" very early so ditched the idea and used a manual method.
+
+![Screenshot Description](<https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(129).png>)
+![Screenshot Description](<https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(130).png>)
+![Screenshot Description](<https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(131).png>)
