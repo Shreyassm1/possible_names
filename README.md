@@ -25,6 +25,6 @@
 
 #### An error with code 429 was encountered due to rate limiting, which means that we need to add a way to make the requests to the API endpoints in a regulated and "human" way. Screenshots for the errors are attached below:
 
-![Screenshot Description](</possible_names/screenshots/Screenshot%20(126).png>)
-![Screenshot Description](</possible_names/screenshots/Screenshot%20(127).png>)
-![Screenshot Description](</possible_names/screenshots/Screenshot%20(128).png>)
+![Screenshot Description](<https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(126).png>)
+![Screenshot Description](<https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(127).png>)
+![Screenshot Description](<https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(128).png>)
