@@ -21,7 +21,7 @@
 
 #### It is also noted that not all possible combinations exist. eg: from zb+a... to zb+z... zb+b... does not exist.
 
-## Log 1 - Observations about versions and types of possible queries checked manually in browser
+## Log 2 - Adding script and encountering rate limiting error.
 
 #### An error with code 429 was encountered due to rate limiting, which means that we need to add a way to make the requests to the API endpoints in a regulated and "human" way. Screenshots for the errors are attached below:
 
