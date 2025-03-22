@@ -53,7 +53,6 @@ function saveNames() {
   );
   console.log(`Progress saved: ${response_names.size} names so far...`);
 }
-
 async function queryVersion() {
   console.log(`\n=== Starting V3 queries ===`);
   const queryChars = numbers + alphabet;
@@ -77,9 +76,14 @@ async function queryVersion() {
       console.log("Next character for longer prefixes: ", next_char);
 
       for (const char of queryChars + specialChars) {
-        if (!specialChars.includes(char) || prefix.length > 0) {
-          queue.push(prefix + char);
+        if (specialChars.includes(char) && prefix.length === 0) {
+          continue;
         }
+        if (char === " " && prefix.endsWith(" ")) {
+          continue;
+        }
+
+        queue.push(prefix + char);
       }
     }
 
@@ -90,7 +94,6 @@ async function queryVersion() {
 
   saveNames();
 }
-
 async function extractAllNames() {
   console.log("Starting extraction...");
   await queryVersion();
