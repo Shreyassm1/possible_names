@@ -56,7 +56,7 @@ function saveNames() {
 
 async function queryVersion() {
   console.log(`\n=== Starting V3 queries ===`);
-  const queryChars = numbers + alphabet + specialChars;
+  const queryChars = numbers + alphabet;
   const queue = queryChars.split("");
 
   while (queue.length > 0) {
@@ -76,8 +76,10 @@ async function queryVersion() {
       const next_char = last_string.substring(prefix.length, prefix.length + 1);
       console.log("Next character for longer prefixes: ", next_char);
 
-      for (const char of queryChars) {
-        queue.push(prefix + char);
+      for (const char of queryChars + specialChars) {
+        if (!specialChars.includes(char) || prefix.length > 0) {
+          queue.push(prefix + char);
+        }
       }
     }
 

@@ -71,3 +71,11 @@ Tried following the instructions given at the root URL, used POSTMAN.
 <img src="https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(136).png" width="500" >
 
 ##### Decided to run version-wise scripts, separately and simulataneously.
+
+### Final Log - Submission
+
+##### For loops have been replaced with an algorithm that goes deeper than just two characters. This was needed because there were prefixes where double characters also had more strings than than max_results.
+
+##### V3 can be optimized further by improving the querying of special characters. Eg: spaces are not seen together so those cases can be skipped. There are too many redundant queries for V3 and some for V2.
+
+##### Nested For-loop logic still returns around 70 percent of the names in both V2 and V3.
