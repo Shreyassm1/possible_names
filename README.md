@@ -51,3 +51,7 @@
 <img src="https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(130).png" width="500" >
 
 <img src="https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(131).png" width="500" >
+
+### Log 4 - Found /solution/
+
+Tried following the instructions given at the root URL, used POSTMAN.

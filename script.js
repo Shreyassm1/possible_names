@@ -8,7 +8,7 @@ const numbers = "0123456789";
 const specialChars = " -+.";
 const response_names = new Set();
 
-function randomDelay(min = 500, max = 2000) {
+function randomDelay(min = 100, max = 1000) {
   const delay = Math.floor(Math.random() * (max - min + 1)) + min;
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
@@ -59,7 +59,7 @@ async function queryVersion(version, queryChars) {
       if (count === 10) {
         const last_name = data[9];
         const start_char = last_name.substring(2, 3);
-        console.log(start_char);
+        console.log("Results array ends here: ", start_char);
         for (const char3 of queryChars.slice(queryChars.indexOf(start_char))) {
           const new_query = query + char3;
           const extra = await fetchNames(version, new_query);
