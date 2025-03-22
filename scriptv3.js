@@ -56,15 +56,16 @@ function saveNames() {
 
 async function queryVersion() {
   console.log(`\n=== Starting V3 queries ===`);
-  const single_char_query = numbers + alphabet;
-  const query = numbers + alphabet + specialChars;
+  const queryChars = numbers + alphabet + specialChars;
+  const queue = queryChars.split("");
 
-  for (const char1 of single_char_query) {
-    console.log(`Querying for prefix: '${char1}'...`);
-    const { strings, count } = await fetchNames(char1);
+  while (queue.length > 0) {
+    const prefix = queue.shift();
+    console.log(`Querying for prefix: '${prefix}'...`);
+    const { strings, count } = await fetchNames(prefix);
 
     if (strings.length === 0) {
-      console.log(`No results for prefix '${char1}', skipping...`);
+      console.log(`No results for prefix '${prefix}', skipping...`);
       continue;
     }
 
@@ -72,34 +73,25 @@ async function queryVersion() {
 
     if (count === 100) {
       const last_string = strings[strings.length - 1];
-      const prefix_char = last_string.substring(1, 2);
-      console.log("Prefix_char for next queries: ", prefix_char);
+      const next_char = last_string.substring(prefix.length, prefix.length + 1);
+      console.log("Next character for longer prefixes: ", next_char);
 
-      for (let i = query.indexOf(prefix_char); i < query.length; i++) {
-        const char2 = query[i];
-        const queryStr = char1 + char2;
-        const { strings } = await fetchNames(queryStr);
-
-        if (strings.length === 0) {
-          console.log(`No results for prefix '${queryStr}', skipping...`);
-          continue;
-        }
-
-        strings.forEach((string) => response_names.add(string));
-
-        if (response_names.size % 10 === 0) {
-          saveNames();
-        }
+      for (const char of queryChars) {
+        queue.push(prefix + char);
       }
     }
-    saveNames();
+
+    if (response_names.size % 10 === 0) {
+      saveNames();
+    }
   }
+
+  saveNames();
 }
 
 async function extractAllNames() {
   console.log("Starting extraction...");
   await queryVersion();
-  saveNames();
   console.log(
     `\nExtraction complete! Found ${response_names.size} unique names.`
   );
