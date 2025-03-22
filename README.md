@@ -55,3 +55,15 @@
 ### Log 4 - Found /solution/
 
 Tried following the instructions given at the root URL, used POSTMAN.
+
+### Log 4 - Found /help/, /hint/ -> max_results
+
+##### Used ffuf and big.txt, medium.txt
+
+##### Used max_results parameter to improve query retrieval.
+
+<img src="https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(132).png" width="500">
+
+<img src="https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(133).png" width="500" >
+
+<img src="https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(134).png" width="500" >

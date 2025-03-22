@@ -7,33 +7,36 @@ const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const numbers = "0123456789";
 const specialChars = " -+.";
 const response_names = new Set();
+let globalDelay = { v1: 100, v2: 1000, v3: 1500 };
 
-function randomDelay(min = 100, max = 1000) {
+function randomDelay(min = 200, max = 1500) {
   const delay = Math.floor(Math.random() * (max - min + 1)) + min;
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
 
-async function fetchNames(version, query, retries = 5, delay = 500) {
+async function fetchNames(version, query, maxResults = 5000, retries = 5) {
   const url = `${BASE_URL}/${version}/autocomplete`;
   await randomDelay();
+
   try {
-    const response = await axios.get(url, { params: { query } });
-    const data = response.data.results;
-    const count = response.data.count;
-    return { data, count };
+    const response = await axios.get(url, {
+      params: { query, max_results: maxResults },
+    });
+    return response.data.results;
   } catch (error) {
     if (error.response && error.response.status === 429 && retries > 0) {
+      globalDelay[version] *= 1.5;
       console.warn(
-        `Rate limit hit for '${query}' on ${version}, retrying in ${delay}ms...`
+        `Rate limit hit for '${query}' on ${version}, retrying in ${globalDelay[version]}ms...`
       );
-      await new Promise((resolve) => setTimeout(resolve, delay));
-      return fetchNames(version, query, retries - 1, delay * 2);
+      await new Promise((resolve) => setTimeout(resolve, globalDelay[version]));
+      return fetchNames(version, query, maxResults, retries - 1);
     } else {
       console.error(
         `Error fetching '${query}' from ${version}:`,
         error.message
       );
-      return { data: [], count: 0 };
+      return [];
     }
   }
 }
@@ -50,24 +53,16 @@ async function queryVersion(version, queryChars) {
   for (const char1 of queryChars) {
     for (const char2 of queryChars) {
       const query = char1 + char2;
-      const { data, count } = await fetchNames(version, query);
+      const data = await fetchNames(version, query, 5000);
       if (data.length === 0) continue;
+
       data.forEach((name) => response_names.add(name));
+
       if (response_names.size % 10 === 0) {
         saveNames();
       }
-      if (count === 10) {
-        const last_name = data[9];
-        const start_char = last_name.substring(2, 3);
-        console.log("Results array ends here: ", start_char);
-        for (const char3 of queryChars.slice(queryChars.indexOf(start_char))) {
-          const new_query = query + char3;
-          const extra = await fetchNames(version, new_query);
-          if (extra.data.length === 0) continue;
-          extra.data.forEach((name) => response_names.add(name));
-          saveNames();
-        }
-      }
+
+      await new Promise((resolve) => setTimeout(resolve, globalDelay[version])); // Version-specific delay
     }
   }
 }
@@ -84,7 +79,7 @@ async function extractAllNames() {
       queryChars = specialChars + numbers + alphabet;
     }
 
-    console.log(`Querying ${version}...`);
+    console.log(`Querying ${version} with delay ${globalDelay[version]}ms...`);
     await queryVersion(version, queryChars);
   }
   saveNames();
