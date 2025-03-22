@@ -63,3 +63,11 @@ Tried following the instructions given at the root URL, used POSTMAN.
 ##### Used max_results parameter and max_results_range to improve efficiency.
 
 <img src="https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(133).png" width="500" >
+
+### Log 6 - Successfully found all names in V1,V2,V3
+
+<img src="https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(135).png" width="500" >
+
+<img src="https://github.com/Shreyassm1/possible_names/blob/main/screenshots/Screenshot%20(136).png" width="500" >
+
+##### Decided to run version-wise scripts, separately and simulataneously.
