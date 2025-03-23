@@ -39,6 +39,8 @@
 
 ##### I checked for duplicates using check_duplicate.js to make sure my logic worked and it did, no duplicates were found.
 
+##### Using a set does not require checking for duplicates, since it automatically stores only unique values.
+
 ##### **Problems faced:**
 
 - Adding logic for returning strings beyond the 10th/12th/15th count consisted of nesting a third for loop.
