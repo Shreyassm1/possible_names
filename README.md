@@ -1,5 +1,15 @@
 # Possible_Names Logs
 
+## Summary: 
+1. Manualy tried to understand v1,v2,v3 - found out about max_results and its range and also the pattern of strings.
+2. Wrote scripts for brute force to understand constraints.
+3. Used ffuf and postman to find "help" and look for "hints" which eventually led me to the "solution".
+4. Used max_results, max_results_range and time constraints for sending requests to the API, to optimize the code.
+5. Implemented a BFS - queue method to cover more base cases for the search feature.
+6. Separated the scripts for different versions so that they could be run simultaneously.
+
+## The entire process was logged with screenshots
+
 ### Log 1 - Observations about versions and types of possible queries checked manually in browser
 
 ##### V1
